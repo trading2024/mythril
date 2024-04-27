@@ -104,7 +104,6 @@ class MachineState:
         stack=None,
         subroutine_stack=None,
         memory: Optional[Memory] = None,
-        constraints=None,
         depth=0,
         max_gas_used=0,
         min_gas_used=0,
@@ -115,7 +114,6 @@ class MachineState:
         :param pc:
         :param stack:
         :param memory:
-        :param constraints:
         :param depth:
         :param max_gas_used:
         :param min_gas_used:
