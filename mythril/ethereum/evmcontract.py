@@ -15,9 +15,7 @@ class EVMContract(persistent.Persistent):
     """This class represents an address with associated code (Smart
     Contract)."""
 
-    def __init__(
-        self, code="", creation_code="", name="Unknown", enable_online_lookup=False
-    ):
+    def __init__(self, code="", creation_code="", name="Unknown"):
         """Create a new contract.
 
         Workaround: We currently do not support compile-time linking.
@@ -27,18 +25,15 @@ class EVMContract(persistent.Persistent):
         :param code:
         :param creation_code:
         :param name:
-        :param enable_online_lookup:
         """
         creation_code = re.sub(r"(_{2}.{38})", "aa" * 20, creation_code)
         code = re.sub(r"(_{2}.{38})", "aa" * 20, code)
         self.creation_code = creation_code
         self.name = name
         self.code = code
-        self.disassembly = Disassembly(code, enable_online_lookup=enable_online_lookup)
+        self.disassembly = Disassembly(code)
 
-        self.creation_disassembly = Disassembly(
-            creation_code, enable_online_lookup=enable_online_lookup
-        )
+        self.creation_disassembly = Disassembly(creation_code)
 
     @property
     def bytecode_hash(self):
@@ -91,7 +86,7 @@ class EVMContract(persistent.Persistent):
         str_eval = ""
         easm_code = None
 
-        tokens = re.split("\s+(and|or|not)\s+", expression, re.IGNORECASE)
+        tokens = re.split(r"\s+(and|or|not)\s+", expression, re.IGNORECASE)
 
         for token in tokens:
 
