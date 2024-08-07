@@ -1,5 +1,6 @@
 """This module contains representation classes for Solidity files, contracts
 and source mappings."""
+
 from typing import Dict, Set
 import logging
 

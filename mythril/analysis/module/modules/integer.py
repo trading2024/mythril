@@ -22,7 +22,7 @@ from mythril.laser.smt import (
     symbol_factory,
     Not,
     Expression,
-    Bool,
+    SMTBool as Bool,
     And,
 )
 

@@ -1,7 +1,5 @@
 import pickle
-from sklearn.ensemble import RandomForestClassifier
 import numpy as np
-from itertools import chain
 
 import logging
 

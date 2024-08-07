@@ -1,5 +1,6 @@
 """This module contains detection code to find occurrences of calls whose
 return value remains unchecked."""
+
 from copy import copy
 from typing import cast, List
 

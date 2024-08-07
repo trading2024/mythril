@@ -6,18 +6,13 @@ from mythril.exceptions import UnsatError, SolverTimeOutException
 
 import logging
 import os
-import signal
 import sys
-import threading
 
-from collections import OrderedDict
-from copy import deepcopy
 from functools import lru_cache
 from multiprocessing.pool import ThreadPool
 from multiprocessing import TimeoutError
 from pathlib import Path
-from time import time
-from z3 import sat, unknown, is_true
+from z3 import sat, unknown
 
 log = logging.getLogger(__name__)
 

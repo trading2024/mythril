@@ -1,6 +1,6 @@
 """This module implements basic symbolic execution search strategies."""
+
 from random import randrange
-from typing import List
 
 from mythril.laser.ethereum.state.global_state import GlobalState
 from . import BasicSearchStrategy

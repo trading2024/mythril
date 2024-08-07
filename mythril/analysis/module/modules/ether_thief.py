@@ -1,5 +1,6 @@
 """This module contains the detection code for unauthorized ether
 withdrawal."""
+
 import logging
 from copy import copy
 

@@ -1,9 +1,6 @@
 import pytest
 
-from unittest.mock import patch
-from eth_utils import decode_hex
-from mythril.laser.ethereum.natives import identity, NativeContractException
-from mythril.laser.smt import symbol_factory
+from mythril.laser.ethereum.natives import identity
 
 
 @pytest.mark.parametrize(

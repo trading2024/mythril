@@ -1,5 +1,6 @@
 """This module contains the detection code for predictable variable
 dependence."""
+
 import logging
 from copy import copy
 from mythril.analysis.issue_annotation import IssueAnnotation

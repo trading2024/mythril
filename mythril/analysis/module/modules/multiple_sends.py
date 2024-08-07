@@ -1,5 +1,6 @@
 """This module contains the detection code to find multiple sends occurring in
 a single transaction."""
+
 from copy import copy
 from typing import cast, List
 from mythril.analysis.issue_annotation import IssueAnnotation

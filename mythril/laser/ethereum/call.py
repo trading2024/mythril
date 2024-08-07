@@ -10,7 +10,6 @@ from eth.constants import GAS_CALLSTIPEND
 import mythril.laser.ethereum.util as util
 from mythril.laser.ethereum.util import insert_ret_val
 from mythril.laser.ethereum import natives
-from mythril.laser.ethereum.cheat_code import handle_cheat_codes, hevm_cheat_code
 from mythril.laser.ethereum.instruction_data import calculate_native_gas
 from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.natives import PRECOMPILE_COUNT, PRECOMPILE_FUNCTIONS

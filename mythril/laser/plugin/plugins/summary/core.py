@@ -2,7 +2,6 @@ from .summary import SymbolicSummary, substitute_exprs
 from .annotations import SummaryTrackingAnnotation
 from mythril.analysis.issue_annotation import IssueAnnotation
 from mythril.analysis.potential_issues import check_potential_issues
-from mythril.analysis import solver
 from mythril.analysis.solver import get_transaction_sequence
 from mythril.exceptions import UnsatError
 
@@ -18,31 +17,23 @@ from mythril.laser.ethereum.transaction.transaction_models import (
 from mythril.support.support_utils import get_code_hash
 from mythril.laser.ethereum.function_managers import (
     keccak_function_manager,
-    KeccakFunctionManager,
 )
 
 from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.laser.ethereum.state.constraints import Constraints
 from mythril.laser.ethereum.state.environment import Environment
 from mythril.laser.ethereum.state.calldata import SymbolicCalldata
-from mythril.laser.ethereum.state.account import Account
 from mythril.laser.smt import (
-    K,
     Array,
-    BaseArray,
-    Bool,
-    simplify,
+    SMTBool as Bool,
     Solver,
-    Not,
-    Or,
     symbol_factory,
     Expression,
 )
 from mythril.support.support_args import args
 import z3
-from typing import Dict, Tuple, List, Optional, Set
+from typing import Tuple, List, Optional, Set
 from copy import copy, deepcopy
-from mythril.support.model import get_model
 
 import logging
 
@@ -399,12 +390,12 @@ class SymbolicSummaryPlugin(LaserPlugin):
             exit=global_state.mstate.pc,
             trace=tracking_annotation.trace,
             code=tracking_annotation.code,
-            issues=list(global_state.get_annotations(IssueAnnotation)),
+            issues=annotations,
             revert=revert,
             get_map=get_map,
             set_map=set_map,
         )
-        log.debug(list(global_state.get_annotations(IssueAnnotation)))
+        log.debug(annotations)
         # Calculate issues for the first transaction
         if len(global_state.world_state.transaction_sequence) == 2:
             for state in self.init_save_states:

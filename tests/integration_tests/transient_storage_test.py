@@ -1,9 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock
-import json
-import sys
 
-from subprocess import STDOUT
 from tests import PROJECT_DIR, TESTDATA
 from utils import output_of
 

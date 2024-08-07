@@ -8,7 +8,7 @@ from mythril.analysis.potential_issues import (
 from mythril.analysis.swc_data import TX_ORDER_DEPENDENCE
 from mythril.laser.ethereum.transaction.symbolic import ACTORS
 from mythril.analysis.module.base import DetectionModule
-from mythril.laser.smt import Or, Bool
+from mythril.laser.smt import Or, SMTBool as Bool
 from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.exceptions import UnsatError
 import logging

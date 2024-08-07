@@ -1,5 +1,6 @@
 """This module contains a representation class for EVM instructions and
 transitions between them."""
+
 import logging
 
 from copy import copy, deepcopy
@@ -19,7 +20,7 @@ from mythril.laser.smt import (
     URem,
     SRem,
     If,
-    Bool,
+    SMTBool as Bool,
     Not,
     LShR,
     UGE,
@@ -1205,13 +1206,13 @@ class Instruction:
         except TypeError:
             # except both attribute error and Exception
             global_state.mstate.mem_extend(concrete_memory_offset, 1)
-            global_state.mstate.memory[
-                concrete_memory_offset
-            ] = global_state.new_bitvec(
-                "code({})".format(
-                    global_state.environment.active_account.contract_name
-                ),
-                8,
+            global_state.mstate.memory[concrete_memory_offset] = (
+                global_state.new_bitvec(
+                    "code({})".format(
+                        global_state.environment.active_account.contract_name
+                    ),
+                    8,
+                )
             )
             return [global_state]
 
@@ -1221,13 +1222,13 @@ class Instruction:
             log.debug("Unsupported symbolic code offset in {}".format(op))
             global_state.mstate.mem_extend(concrete_memory_offset, concrete_size)
             for i in range(concrete_size):
-                global_state.mstate.memory[
-                    concrete_memory_offset + i
-                ] = global_state.new_bitvec(
-                    "code({})".format(
-                        global_state.environment.active_account.contract_name
-                    ),
-                    8,
+                global_state.mstate.memory[concrete_memory_offset + i] = (
+                    global_state.new_bitvec(
+                        "code({})".format(
+                            global_state.environment.active_account.contract_name
+                        ),
+                        8,
+                    )
                 )
             return [global_state]
 
@@ -1897,9 +1898,9 @@ class Instruction:
         global_state.environment.active_account = deepcopy(
             global_state.environment.active_account
         )
-        global_state.accounts[
-            global_state.environment.active_account.address.value
-        ] = global_state.environment.active_account
+        global_state.accounts[global_state.environment.active_account.address.value] = (
+            global_state.environment.active_account
+        )
 
         global_state.environment.active_account.set_balance(0)
         global_state.environment.active_account.deleted = True
@@ -2239,9 +2240,9 @@ class Instruction:
         else:
             ret_size = global_state.last_return_data.size.value
         for i in range(min(memory_out_size, ret_size)):
-            global_state.mstate.memory[
-                i + memory_out_offset
-            ] = global_state.last_return_data[i]
+            global_state.mstate.memory[i + memory_out_offset] = (
+                global_state.last_return_data[i]
+            )
 
         # Put return value on stack
         return_value = global_state.new_bitvec("retval_" + str(instr["address"]), 256)
@@ -2387,9 +2388,9 @@ class Instruction:
         else:
             ret_size = global_state.last_return_data.size.value
         for i in range(min(memory_out_size, ret_size)):
-            global_state.mstate.memory[
-                i + memory_out_offset
-            ] = global_state.last_return_data[i]
+            global_state.mstate.memory[i + memory_out_offset] = (
+                global_state.last_return_data[i]
+            )
 
         # Put return value on stack
         return_value = global_state.new_bitvec("retval_" + str(instr["address"]), 256)
@@ -2538,9 +2539,9 @@ class Instruction:
             ret_size = global_state.last_return_data.size.value
 
         for i in range(min(memory_out_size, ret_size)):
-            global_state.mstate.memory[
-                i + memory_out_offset
-            ] = global_state.last_return_data[i]
+            global_state.mstate.memory[i + memory_out_offset] = (
+                global_state.last_return_data[i]
+            )
 
         # Put return value on stack
         return_value = global_state.new_bitvec(

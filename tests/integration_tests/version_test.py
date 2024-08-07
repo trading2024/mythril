@@ -1,6 +1,4 @@
 import pytest
-import json
-import sys
 
 from tests import PROJECT_DIR, TESTDATA
 from utils import output_of
@@ -29,7 +27,7 @@ def test_analysis(file_name, version, has_overflow):
         command = f"python3 {MYTH} analyze {file}"
     output = output_of(command)
     if has_overflow:
-        assert f"SWC ID: 101" in output
+        assert "SWC ID: 101" in output
     else:
         assert (
             "The analysis was completed successfully. No issues were detected."

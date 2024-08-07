@@ -1,6 +1,5 @@
 from subprocess import check_output, CalledProcessError, STDOUT
-from tests import BaseTestCase, TESTDATA, PROJECT_DIR, TESTS_DIR
-from unittest.mock import patch
+from tests import BaseTestCase, TESTDATA, PROJECT_DIR
 
 MYTH = str(PROJECT_DIR / "myth")
 

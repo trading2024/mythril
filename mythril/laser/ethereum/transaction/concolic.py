@@ -1,15 +1,14 @@
 """This module contains functions to set up and execute concolic message
 calls."""
+
 import binascii
 
 from typing import List, Union
-from copy import deepcopy
 
 from mythril.exceptions import IllegalArgumentError
 from mythril.disassembler.disassembly import Disassembly
 from mythril.laser.ethereum.cfg import Node, Edge, JumpType
 from mythril.laser.smt import symbol_factory
-from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.state.calldata import ConcreteCalldata
 from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.laser.ethereum.state.world_state import WorldState

@@ -1,4 +1,5 @@
 """This module contains the detection code for reachable exceptions."""
+
 import logging
 
 from typing import cast, List, Optional

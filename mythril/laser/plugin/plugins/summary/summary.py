@@ -1,4 +1,4 @@
-from mythril.laser.smt import BaseArray, Array, Solver, symbol_factory
+from mythril.laser.smt import Array, Solver, symbol_factory
 from mythril.support.support_args import args
 from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.laser.plugin.plugins.plugin_annotations import MutationAnnotation

@@ -4,8 +4,6 @@ from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.state.world_state import WorldState
 from mythril.support.support_args import args
 
-import mythril.laser.ethereum.cfg as cfg
-
 
 def test_intercontract_call():
     # Arrange

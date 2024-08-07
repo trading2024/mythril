@@ -1,4 +1,5 @@
 """This module contains an abstract SMT representation of an SMT solver."""
+
 import logging
 import os
 import sys

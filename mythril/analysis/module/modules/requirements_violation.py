@@ -1,4 +1,5 @@
 """This module contains the detection code for requirement violations in a call"""
+
 import logging
 
 from mythril.analysis import solver

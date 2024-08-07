@@ -5,7 +5,6 @@ from mythril.laser.plugin.builder import PluginBuilder
 from mythril.laser.plugin.interface import LaserPlugin
 from mythril.laser.ethereum.svm import LaserEVM
 from mythril.laser.ethereum.state.global_state import GlobalState
-from datetime import datetime
 import logging
 
 # Type annotations:

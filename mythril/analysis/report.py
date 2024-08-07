@@ -1,5 +1,5 @@
 """This module provides classes that make up an issue report."""
-import base64
+
 import logging
 import re
 import json
@@ -242,7 +242,7 @@ class Issue:
                 for item in decoded_output
             )
             return decoded_output
-        except Exception as e:
+        except Exception:
             return None
 
 

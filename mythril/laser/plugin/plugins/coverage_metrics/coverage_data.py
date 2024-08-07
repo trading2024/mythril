@@ -1,5 +1,4 @@
 import json
-from typing import Dict, List
 
 from mythril.support.support_utils import get_code_hash
 from mythril.laser.execution_info import ExecutionInfo

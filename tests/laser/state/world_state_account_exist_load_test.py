@@ -1,15 +1,3 @@
-import pytest
-
-from mythril.disassembler.disassembly import Disassembly
-from mythril.laser.ethereum.state.environment import Environment
-from mythril.laser.ethereum.state.account import Account
-from mythril.laser.ethereum.state.machine_state import MachineState
-from mythril.laser.ethereum.state.global_state import GlobalState
-from mythril.laser.ethereum.state.world_state import WorldState
-from mythril.support.loader import DynLoader
-from mythril.ethereum.interface.rpc.client import EthJsonRpc
-from mythril.laser.ethereum.instructions import Instruction
-
 """
 def _get_global_state():
     active_account = Account("0x0", code=Disassembly("60606040"))

@@ -1,5 +1,6 @@
 """This module contains the class representing EVM contracts, aka Smart
 Contracts."""
+
 import re
 import logging
 import persistent

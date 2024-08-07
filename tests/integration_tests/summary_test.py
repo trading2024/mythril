@@ -1,7 +1,5 @@
 import pytest
 import json
-import sys
-import os
 
 from tests import PROJECT_DIR, TESTDATA
 from utils import output_of

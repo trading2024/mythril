@@ -1,4 +1,5 @@
 """This module contains the detection code for unexpected ether balance."""
+
 from mythril.analysis.report import Issue
 from mythril.analysis.issue_annotation import IssueAnnotation
 from mythril.analysis.swc_data import UNEXPECTED_ETHER_BALANCE

@@ -1,8 +1,9 @@
 """This module declares classes to represent call data."""
+
 from typing import cast, Union, Tuple, List
 
 
-from typing import Any, Union
+from typing import Any
 
 from z3 import Model, unsat, unknown
 from z3.z3types import Z3Exception
@@ -12,7 +13,7 @@ from mythril.laser.ethereum.util import get_concrete_int
 from mythril.laser.smt import (
     Array,
     BitVec,
-    Bool,
+    SMTBool as Bool,
     Concat,
     Expression,
     If,

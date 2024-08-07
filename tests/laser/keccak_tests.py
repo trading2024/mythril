@@ -1,4 +1,4 @@
-from mythril.laser.smt import Solver, symbol_factory, And
+from mythril.laser.smt import Solver, symbol_factory
 from mythril.laser.ethereum.function_managers import keccak_function_manager
 import z3
 import pytest

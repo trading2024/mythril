@@ -7,7 +7,6 @@ from .coverage_data import (
     InstructionCoverageInfo,
 )
 from .constants import BATCH_OF_STATES
-from typing import Dict, Tuple, List
 
 import time
 import logging

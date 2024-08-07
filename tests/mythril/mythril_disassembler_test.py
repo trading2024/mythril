@@ -1,6 +1,4 @@
-import pytest
-from mythril.mythril import MythrilConfig, MythrilDisassembler
-from mythril.exceptions import CriticalError
+from mythril.mythril import MythrilDisassembler
 
 storage_test = [
     (

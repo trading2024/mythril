@@ -1,4 +1,5 @@
 """This module contains the class used to represent disassembly code."""
+
 from mythril.ethereum import util
 from mythril.disassembler import asm
 from mythril.support.signatures import SignatureDB

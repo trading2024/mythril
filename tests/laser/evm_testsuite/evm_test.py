@@ -2,19 +2,16 @@ from mythril.laser.ethereum.svm import LaserEVM
 from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.state.world_state import WorldState
 from mythril.laser.ethereum.time_handler import time_handler
-from mythril.laser.ethereum.function_managers import keccak_function_manager
 from mythril.disassembler.disassembly import Disassembly
 from mythril.laser.ethereum.transaction.concolic import execute_message_call
-from mythril.laser.smt import Expression, BitVec, symbol_factory
+from mythril.laser.smt import Expression, symbol_factory
 from mythril.support.support_args import args
 from datetime import datetime
 
 import binascii
 import json
-import os
 from pathlib import Path
 import pytest
-from z3 import ExprRef, simplify
 
 evm_test_dir = Path(__file__).parent / "VMTests"
 

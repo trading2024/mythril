@@ -1,19 +1,16 @@
 import pytest
-from unittest.mock import patch
 
 from mythril.disassembler.disassembly import Disassembly
-from mythril.laser.smt import symbol_factory, BitVec
+from mythril.laser.smt import symbol_factory
 from mythril.laser.ethereum.state.environment import Environment
 from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.state.machine_state import MachineState
 from mythril.laser.ethereum.state.constraints import Constraints
 from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.laser.ethereum.state.world_state import WorldState
-from mythril.laser.ethereum.instructions import Instruction
 from mythril.laser.ethereum.transaction.symbolic import ACTORS
 from mythril.laser.ethereum.transaction.transaction_models import MessageCallTransaction
 from mythril.laser.ethereum.call import SymbolicCalldata
-from mythril.laser.ethereum.transaction import TransactionStartSignal
 from mythril.analysis.module.modules.arbitrary_jump import (
     is_unique_jumpdest,
     ArbitraryJump,

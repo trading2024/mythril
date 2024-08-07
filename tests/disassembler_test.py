@@ -1,6 +1,10 @@
 from mythril.disassembler.disassembly import Disassembly
-from mythril.ethereum import util
-from tests import *
+from tests import (
+    BaseTestCase,
+    TESTDATA_INPUTS,
+    TESTDATA_OUTPUTS_EXPECTED,
+    TESTDATA_OUTPUTS_CURRENT,
+)
 import os
 
 

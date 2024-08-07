@@ -1,9 +1,10 @@
 """This module contains a representation of the EVM's machine state and its
 stack."""
+
 from copy import copy
 from typing import cast, Sized, Union, Any, List, Dict, Optional
 
-from mythril.laser.smt import BitVec, Bool, If, Expression, symbol_factory
+from mythril.laser.smt import BitVec, SMTBool as Bool, If, Expression, symbol_factory
 from eth._utils.numeric import ceil32
 
 from eth.constants import GAS_MEMORY, GAS_MEMORY_QUADRATIC_DENOMINATOR

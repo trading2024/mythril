@@ -3,6 +3,7 @@
 This module includes an definition of the DetectionModule interface.
 DetectionModules implement different analysis rules to find weaknesses and vulnerabilities.
 """
+
 import logging
 from typing import List, Set, Optional, Tuple
 

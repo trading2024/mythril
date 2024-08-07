@@ -1,5 +1,6 @@
 """This module provides helper functions for the analysis modules to deal with
 call functionality."""
+
 from typing import Union
 
 from mythril.analysis.ops import VarType, Call, get_variable

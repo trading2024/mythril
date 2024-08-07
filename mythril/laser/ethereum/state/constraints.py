@@ -1,7 +1,8 @@
 """This module contains the class used to represent state-change constraints in
 the call graph."""
+
 from mythril.exceptions import UnsatError, SolverTimeOutException
-from mythril.laser.smt import symbol_factory, simplify, Bool
+from mythril.laser.smt import symbol_factory, simplify, SMTBool as Bool
 from mythril.support.model import get_model
 from mythril.laser.ethereum.function_managers import keccak_function_manager
 from mythril.laser.smt.model import Model
@@ -118,9 +119,11 @@ class Constraints(list):
     @staticmethod
     def _get_smt_bool_list(constraints: Iterable[Union[bool, Bool]]) -> List[Bool]:
         return [
-            constraint
-            if isinstance(constraint, Bool)
-            else symbol_factory.Bool(constraint)
+            (
+                constraint
+                if isinstance(constraint, Bool)
+                else symbol_factory.Bool(constraint)
+            )
             for constraint in constraints
         ]
 

@@ -26,7 +26,6 @@ from mythril.analysis.module.modules.unchecked_retval import UncheckedRetval
 from mythril.analysis.module.modules.user_assertions import UserAssertions
 from mythril.analysis.module.modules.unexpected_ether import UnexpectedEther
 
-from mythril.analysis.module.base import EntryPoint
 
 from mythril.exceptions import DetectorNotFoundError
 

@@ -10,4 +10,3 @@ import mythril.interfaces.cli
 if __name__ == "__main__":
     mythril.interfaces.cli.main()
     exit()
-

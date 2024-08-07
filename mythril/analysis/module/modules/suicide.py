@@ -11,7 +11,6 @@ from mythril.laser.ethereum.transaction.transaction_models import (
     ContractCreationTransaction,
 )
 import logging
-from mythril.laser.ethereum.function_managers import keccak_function_manager
 
 
 log = logging.getLogger(__name__)

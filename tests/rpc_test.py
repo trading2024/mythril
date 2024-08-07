@@ -1,4 +1,3 @@
-from unittest import TestCase
 from tests import BaseTestCase
 
 from mythril.ethereum.interface.rpc.client import EthJsonRpc

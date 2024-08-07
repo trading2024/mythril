@@ -6,7 +6,7 @@ from mythril.laser.smt import (
     ULE,
     And,
     ULT,
-    Bool,
+    SMTBool as Bool,
     Or,
 )
 

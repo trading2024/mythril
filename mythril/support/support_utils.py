@@ -5,7 +5,7 @@ from copy import deepcopy
 from eth_hash.auto import keccak
 from functools import lru_cache
 from typing import Dict
-from z3 import is_true, simplify, And
+from z3 import is_true
 import logging
 
 log = logging.getLogger(__name__)

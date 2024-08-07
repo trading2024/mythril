@@ -9,7 +9,6 @@ publish to pypi w/o having to convert Readme.md to RST:
 """
 from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
-from subprocess import check_call
 
 import sys
 import os
@@ -24,6 +23,7 @@ AUTHOR = "ConsenSys Dilligence"
 AUTHOR_MAIL = None
 REQUIRES_PYTHON = ">=3.7.0"
 here = os.path.abspath(os.path.dirname(__file__))
+
 
 # What packages are required for this module to be executed?
 def get_requirements():

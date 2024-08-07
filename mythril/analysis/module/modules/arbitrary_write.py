@@ -1,4 +1,5 @@
 """This module contains the detection code for arbitrary storage write."""
+
 import logging
 from mythril.analysis.module.base import DetectionModule, EntryPoint
 from mythril.analysis.potential_issues import (

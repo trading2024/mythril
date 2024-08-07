@@ -1,4 +1,5 @@
 """This module contains a representation of the global execution state."""
+
 from typing import Dict, Union, List, Iterable, TYPE_CHECKING
 
 from copy import copy, deepcopy

@@ -1,6 +1,4 @@
 import pytest
-import json
-import sys
 
 from utils import output_of
 from tests import PROJECT_DIR, TESTDATA

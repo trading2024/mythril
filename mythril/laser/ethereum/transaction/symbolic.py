@@ -1,15 +1,14 @@
 """This module contains functions setting up and executing transactions with
 symbolic values."""
+
 import logging
-from typing import Optional, List, Union
-from copy import deepcopy
+from typing import Optional, List
 
 
 from mythril.disassembler.disassembly import Disassembly
 from mythril.laser.ethereum.cfg import Node, Edge, JumpType
 from mythril.laser.ethereum.state.account import Account
 from mythril.laser.ethereum.state.calldata import SymbolicCalldata
-from mythril.laser.ethereum.state.constraints import Constraints
 from mythril.laser.ethereum.state.world_state import WorldState
 from mythril.laser.ethereum.transaction.transaction_models import (
     MessageCallTransaction,
@@ -17,8 +16,7 @@ from mythril.laser.ethereum.transaction.transaction_models import (
     tx_id_manager,
     BaseTransaction,
 )
-from mythril.laser.smt import symbol_factory, Or, Bool, BitVec
-from mythril.support.support_args import args as cmd_args
+from mythril.laser.smt import symbol_factory, Or, SMTBool as Bool, BitVec
 
 
 FUNCTION_HASH_BYTE_LENGTH = 4

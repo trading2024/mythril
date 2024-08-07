@@ -1,4 +1,5 @@
 """This module implements the main symbolic execution engine."""
+
 import logging
 from collections import defaultdict
 from copy import copy
@@ -247,7 +248,7 @@ class LaserEVM:
         """
         for txs in self.strategy:
             log.info(f"Executing the sequence: {txs}")
-            self._execute_transactions_incremental(address, txs=tx)
+            self._execute_transactions_incremental(address, txs=txs)
 
     def _execute_transactions_incremental(self, address, txs=None):
         """This function executes multiple transactions incrementally on the address

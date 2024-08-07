@@ -6,7 +6,6 @@ from .merge_states import merge_states
 from .check_mergeability import check_ws_merge_condition
 from mythril.laser.ethereum.state.world_state import WorldState
 from mythril.laser.ethereum.state.annotation import StateAnnotation
-from mythril.laser.plugin.interface import LaserPlugin
 import logging
 
 log = logging.getLogger(__name__)

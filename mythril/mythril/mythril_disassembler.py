@@ -6,12 +6,11 @@ import re
 import shutil
 import solc
 import subprocess
-import sys
 import warnings
 
 from eth_utils import int_to_big_endian
 from semantic_version import Version, NpmSpec
-from typing import List, Tuple, Optional, TYPE_CHECKING
+from typing import List, Tuple, Optional
 
 from mythril.support.support_utils import sha3, zpad
 from mythril.ethereum import util
@@ -27,7 +26,6 @@ from mythril.solidity.soliditycontract import (
     get_contracts_from_file,
     get_contracts_from_foundry,
 )
-from mythril.support.support_args import args
 
 
 def format_warning(message, category, filename, lineno, line=""):
@@ -196,17 +194,13 @@ class MythrilDisassembler:
         for file in files:
             build_info = Path(build_dir, file)
 
-            uniq_id = file if ".json" not in file else file[0:-5]
-
             with open(build_info, encoding="utf8") as file_desc:
                 loaded_json = json.load(file_desc)
 
                 targets_json = loaded_json["output"]
 
-                version_from_config = loaded_json["solcVersion"]
                 input_json = loaded_json["input"]
                 compiler = "solc" if input_json["language"] == "Solidity" else "vyper"
-                optimizer = input_json["settings"]["optimizer"]["enabled"]
 
                 if compiler == "vyper":
                     raise NotImplementedError("Support for Vyper is not implemented.")

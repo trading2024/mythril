@@ -1,7 +1,3 @@
-import pytest
-import json
-import sys
-
 from subprocess import check_output, STDOUT
 from tests import PROJECT_DIR, TESTDATA
 
@@ -21,7 +17,6 @@ def test_positive_solc_settings():
 def test_positive_solc_args():
     base_path = str(TESTDATA)
     file_dir = str(TESTDATA / "json_test_dir" / "dir_a")
-    json_file_path = str(TESTDATA / "json_test_dir" / "test_file.json")
     file_path = file_dir + "/input_file_args.sol"
 
     command = f"""cd {file_dir} && python3 {MYTH} analyze {file_path} --solc-args "--allow-paths {base_path}" --solv 0.8.0"""

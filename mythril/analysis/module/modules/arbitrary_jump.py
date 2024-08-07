@@ -1,7 +1,6 @@
 """This module contains the detection code for Arbitrary jumps."""
-import logging
 
-from mythril.exceptions import UnsatError
+import logging
 
 from mythril.analysis.solver import get_transaction_sequence, UnsatError
 from mythril.analysis.issue_annotation import IssueAnnotation

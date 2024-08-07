@@ -32,13 +32,13 @@ def LShR(a: BitVec, b: BitVec):
 
 
 @overload
-def If(a: Union[Bool, bool], b: Union[BitVec, int], c: Union[BitVec, int]) -> BitVec:
-    ...
+def If(
+    a: Union[Bool, bool], b: Union[BitVec, int], c: Union[BitVec, int]
+) -> BitVec: ...
 
 
 @overload
-def If(a: Union[Bool, bool], b: BaseArray, c: BaseArray) -> BaseArray:
-    ...
+def If(a: Union[Bool, bool], b: BaseArray, c: BaseArray) -> BaseArray: ...
 
 
 def If(
@@ -113,13 +113,11 @@ def ULE(a: BitVec, b: BitVec) -> Bool:
 
 
 @overload
-def Concat(*args: List[BitVec]) -> BitVec:
-    ...
+def Concat(*args: List[BitVec]) -> BitVec: ...
 
 
 @overload
-def Concat(*args: BitVec) -> BitVec:
-    ...
+def Concat(*args: BitVec) -> BitVec: ...
 
 
 def Concat(*args: Union[BitVec, List[BitVec]]) -> BitVec:
