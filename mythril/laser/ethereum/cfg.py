@@ -59,25 +59,29 @@ class Node:
 
     def get_cfg_dict(self) -> Dict:
         """
+        Generate a configuration dictionary for the current state of the contract.
 
-        :return:
+        :return: A dictionary containing the contract's configuration details.
         """
-        code = ""
-        for state in self.states:
-            instruction = state.get_current_instruction()
+        code_lines = [
+            f"{instruction['address']} {instruction['opcode']}"
+            + (
+                f" {instruction['argument']}"
+                if instruction["opcode"].startswith("PUSH")
+                and "argument" in instruction
+                else ""
+            )
+            for state in self.states
+            for instruction in [state.get_current_instruction()]
+        ]
+        code = "\\n".join(code_lines)
 
-            code += str(instruction["address"]) + " " + instruction["opcode"]
-            if instruction["opcode"].startswith("PUSH"):
-                code += " " + "".join(str(instruction["argument"]))
-
-            code += "\\n"
-
-        return dict(
-            contract_name=self.contract_name,
-            start_addr=self.start_addr,
-            function_name=self.function_name,
-            code=code,
-        )
+        return {
+            "contract_name": self.contract_name,
+            "start_addr": self.start_addr,
+            "function_name": self.function_name,
+            "code": code,
+        }
 
 
 class Edge:
