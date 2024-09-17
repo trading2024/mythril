@@ -1,23 +1,11 @@
-import logging
-import re
-from typing import Union, List, cast, Optional
-from eth.constants import GAS_CALLSTIPEND
+from typing import Union
 
-import mythril.laser.ethereum.util as util
-from mythril.laser.ethereum.util import insert_ret_val
-from mythril.laser.ethereum import natives
-from mythril.laser.ethereum.instruction_data import calculate_native_gas
-from mythril.laser.ethereum.state.account import Account
-from mythril.laser.ethereum.natives import PRECOMPILE_COUNT, PRECOMPILE_FUNCTIONS
 from mythril.laser.ethereum.state.calldata import (
     BaseCalldata,
-    SymbolicCalldata,
-    ConcreteCalldata,
 )
 from mythril.laser.ethereum.state.global_state import GlobalState
-from mythril.laser.smt import BitVec, If
-from mythril.laser.smt import simplify, Expression, symbol_factory
-from mythril.support.loader import DynLoader
+from mythril.laser.ethereum.util import insert_ret_val
+from mythril.laser.smt import BitVec, Expression
 
 
 class hevm_cheat_code:

@@ -1,15 +1,16 @@
 from typing import (
-    overload,
-    Tuple,
     Any,
-    List,
     Iterable,
     Iterator,
+    List,
     Optional,
+    Sequence,
+    Tuple,
     TypeVar,
     Union,
-    Sequence,
+    overload,
 )
+
 from .z3types import Ast, ContextObj
 
 class Context: ...
@@ -20,10 +21,12 @@ class AstRef(Z3PPObject):
     def __init__(self, ast: Ast, ctx: Context) -> None:
         self.ast: Ast = ...
         self.ctx: Context = ...
+
     @overload
     def __init__(self, ast: Ast) -> None:
         self.ast: Ast = ...
         self.ctx: Context = ...
+
     def ctx_ref(self) -> ContextObj: ...
     def as_ast(self) -> Ast: ...
     def children(self) -> List[AstRef]: ...

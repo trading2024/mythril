@@ -1,7 +1,12 @@
-from mythril.disassembler.disassembly import Disassembly
-from mythril.ethereum import util
-from tests import *
 import os
+
+from mythril.disassembler.disassembly import Disassembly
+from tests import (
+    TESTDATA_INPUTS,
+    TESTDATA_OUTPUTS_CURRENT,
+    TESTDATA_OUTPUTS_EXPECTED,
+    BaseTestCase,
+)
 
 
 class DisassemblerTestCase(BaseTestCase):

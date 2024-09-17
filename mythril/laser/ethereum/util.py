@@ -1,12 +1,22 @@
 """This module contains various utility conversion functions and constants for
 LASER."""
+
 import re
-from typing import Dict, List, Union, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Dict, List, Union, cast
 
 if TYPE_CHECKING:
-    from mythril.laser.ethereum.state.machine_state import MachineState
     from mythril.laser.ethereum.state.global_state import GlobalState
-from mythril.laser.smt import BitVec, Bool, Expression, If, simplify, symbol_factory
+    from mythril.laser.ethereum.state.machine_state import MachineState
+from mythril.laser.smt import (
+    BitVec,
+    Expression,
+    If,
+    simplify,
+    symbol_factory,
+)
+from mythril.laser.smt import (
+    SMTBool as Bool,
+)
 
 TT256 = 2**256
 TT256M1 = 2**256 - 1

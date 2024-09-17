@@ -7,14 +7,12 @@ publish to pypi w/o having to convert Readme.md to RST:
     1) #> python setup.py sdist bdist_wheel
     2) #> twine upload dist/*   #<specify bdist_wheel version to upload>; #optional --repository <testpypi> or  --repository-url <testpypi-url>
 """
-from setuptools import setup, find_packages
-from setuptools.command.install import install as _install
-from subprocess import check_call
-
-import sys
-import os
 import io
+import os
+import sys
 
+from setuptools import find_packages, setup
+from setuptools.command.install import install as _install
 
 # Package meta-data.
 NAME = "mythril"
@@ -24,6 +22,7 @@ AUTHOR = "ConsenSys Dilligence"
 AUTHOR_MAIL = None
 REQUIRES_PYTHON = ">=3.7.0"
 here = os.path.abspath(os.path.dirname(__file__))
+
 
 # What packages are required for this module to be executed?
 def get_requirements():
@@ -119,6 +118,8 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     keywords="hacking disassembler security ethereum",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),

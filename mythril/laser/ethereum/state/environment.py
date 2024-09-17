@@ -1,5 +1,6 @@
 """This module contains the representation for an execution state's
 environment."""
+
 from typing import Dict
 
 from z3 import ExprRef

@@ -2,14 +2,14 @@
 
 This includes classes representing accounts and their storage.
 """
+
 import logging
 from copy import copy, deepcopy
-from typing import Any, Dict, Union, Set
+from typing import Any, Dict, Set, Union
 
-
-from mythril.laser.smt import Array, K, BitVec, simplify, BaseArray, If, Bool
 from mythril.disassembler.disassembly import Disassembly
-from mythril.laser.smt import symbol_factory
+from mythril.laser.smt import Array, BaseArray, BitVec, If, K, simplify, symbol_factory
+from mythril.laser.smt import SMTBool as Bool
 from mythril.support.support_args import args
 
 log = logging.getLogger(__name__)
@@ -174,9 +174,9 @@ class Account:
         """
         for key, value in storage.items():
             concrete_key, concrete_value = int(key, 16), int(value, 16)
-            self.storage[
-                symbol_factory.BitVecVal(concrete_key, 256)
-            ] = symbol_factory.BitVecVal(concrete_value, 256)
+            self.storage[symbol_factory.BitVecVal(concrete_key, 256)] = (
+                symbol_factory.BitVecVal(concrete_value, 256)
+            )
 
     def add_balance(self, balance: Union[int, BitVec]) -> None:
         """

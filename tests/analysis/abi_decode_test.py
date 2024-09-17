@@ -1,16 +1,6 @@
 import pytest
 
 from mythril.analysis.report import Issue
-from mythril.disassembler.disassembly import Disassembly
-from mythril.laser.ethereum.state.environment import Environment
-from mythril.laser.ethereum.state.account import Account
-from mythril.laser.ethereum.state.machine_state import MachineState
-from mythril.laser.ethereum.state.global_state import GlobalState
-from mythril.laser.ethereum.state.world_state import WorldState
-from mythril.laser.ethereum.instructions import Instruction
-from mythril.laser.ethereum.transaction.transaction_models import MessageCallTransaction
-from mythril.laser.smt import symbol_factory, simplify, LShR
-
 
 test_data = (
     (
@@ -26,27 +16,11 @@ test_data = (
         "func(uint256,uint256)",
         (2, 2),
     ),
+    # location + length + data
     (
-        "0xa0cce1b3000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
-        "func(bytes32,(bytes32,bytes32,uint8,uint8)[],(address[],uint32))",
-        (
-            "0000000000000000000000000000000000000000000000000000000000000002",
-            (
-                (
-                    "0000000000000000000000000000000000000000000000000000000000000000",
-                    "0000000000000000000000000000000000000000000000000000000000000090",
-                    0,
-                    0,
-                ),
-                (
-                    "0000000000000000000000000000005000000000000000000000000000000000",
-                    "0000000000000000000000000000000000000000000000000000000000000000",
-                    1,
-                    0,
-                ),
-            ),
-            (("0x0000000000000000000000000000000000000000",), 0),
-        ),
+        "0xa9059cbb" + "0" * 62 + "20" + "0" * 63 + "1" + "0" * 63 + "2",
+        "func(uint256[])",
+        ((2,),),
     ),
 )
 

@@ -1,6 +1,6 @@
-from subprocess import check_output, CalledProcessError, STDOUT
-from tests import BaseTestCase, TESTDATA, PROJECT_DIR, TESTS_DIR
-from mock import patch
+from subprocess import STDOUT, CalledProcessError, check_output
+
+from tests import PROJECT_DIR, TESTDATA, BaseTestCase
 
 MYTH = str(PROJECT_DIR / "myth")
 

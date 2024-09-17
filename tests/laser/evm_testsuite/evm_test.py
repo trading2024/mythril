@@ -1,20 +1,18 @@
-from mythril.laser.ethereum.svm import LaserEVM
-from mythril.laser.ethereum.state.account import Account
-from mythril.laser.ethereum.state.world_state import WorldState
-from mythril.laser.ethereum.time_handler import time_handler
-from mythril.laser.ethereum.function_managers import keccak_function_manager
-from mythril.disassembler.disassembly import Disassembly
-from mythril.laser.ethereum.transaction.concolic import execute_message_call
-from mythril.laser.smt import Expression, BitVec, symbol_factory
-from mythril.support.support_args import args
-from datetime import datetime
-
 import binascii
 import json
-import os
+from datetime import datetime
 from pathlib import Path
+
 import pytest
-from z3 import ExprRef, simplify
+
+from mythril.disassembler.disassembly import Disassembly
+from mythril.laser.ethereum.state.account import Account
+from mythril.laser.ethereum.state.world_state import WorldState
+from mythril.laser.ethereum.svm import LaserEVM
+from mythril.laser.ethereum.time_handler import time_handler
+from mythril.laser.ethereum.transaction.concolic import execute_message_call
+from mythril.laser.smt import Expression, symbol_factory
+from mythril.support.support_args import args
 
 evm_test_dir = Path(__file__).parent / "VMTests"
 
@@ -121,6 +119,7 @@ def test_vmtest(
         return
     world_state = WorldState()
     args.unconstrained_storage = False
+    args.pruning_factor = 1
     for address, details in pre_condition.items():
         account = Account(address, concrete_storage=True)
         account.code = Disassembly(details["code"][2:])

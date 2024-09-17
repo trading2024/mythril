@@ -1,6 +1,8 @@
-from mock import patch
-from mythril.laser.ethereum.natives import ec_pair
+from unittest.mock import patch
+
 from py_ecc.optimized_bn128 import FQ
+
+from mythril.laser.ethereum.natives import ec_pair
 
 
 def test_ec_pair_192_check():

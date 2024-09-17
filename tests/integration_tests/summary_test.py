@@ -1,10 +1,9 @@
-import pytest
 import json
-import sys
-import os
+
+import pytest
+from utils import output_of
 
 from tests import PROJECT_DIR, TESTDATA
-from utils import output_of
 
 MYTH = str(PROJECT_DIR / "myth")
 

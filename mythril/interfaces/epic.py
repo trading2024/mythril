@@ -1,4 +1,5 @@
 """Don't ask."""
+
 #!/usr/bin/env python
 #
 # "THE BEER-WARE LICENSE" (Revision 43~maze)
@@ -9,6 +10,7 @@
 
 # https://github.com/tehmaze/lolcat
 
+import argparse
 import atexit
 import math
 import os
@@ -16,9 +18,9 @@ import random
 import re
 import sys
 import time
-import argparse
 
 PY3 = sys.version_info >= (3,)
+
 
 # Reset terminal colors at exit
 def reset():

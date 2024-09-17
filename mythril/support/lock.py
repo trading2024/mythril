@@ -1,6 +1,6 @@
+import errno
 import os
 import time
-import errno
 
 """
 credits: https://github.com/dmfrey/FileLock
@@ -42,7 +42,7 @@ class LockFile(object):
                 if e.errno != errno.EEXIST:
                     raise
                 if (time.time() - start_time) >= self.timeout:
-                    raise FileLockException(
+                    raise LockFileException(
                         f"Stuck for more than {self.timeout} seconds waiting to unlock the file {self.filename}."
                     )
                 time.sleep(self.delay)
@@ -66,7 +66,7 @@ class LockFile(object):
 
     def __exit__(self, type, value, traceback):
         """
-        Lock get's released at the end of the `with` block
+        Lock gets released at the end of the `with` block
         """
         if self.is_locked:
             self.release()

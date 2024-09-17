@@ -3,23 +3,24 @@
 
 import logging
 import traceback
-from typing import Optional, List
 from argparse import Namespace
+from typing import List, Optional
 
-from . import MythrilDisassembler
-from mythril.support.source_support import Source
-from mythril.support.loader import DynLoader
-from mythril.support.support_args import args
-from mythril.analysis.symbolic import SymExecWrapper
 from mythril.analysis.callgraph import generate_graph
-from mythril.analysis.traceexplore import get_serializable_statespace
+from mythril.analysis.report import Issue, Report
 from mythril.analysis.security import fire_lasers, retrieve_callback_issues
-from mythril.analysis.report import Report, Issue
+from mythril.analysis.symbolic import SymExecWrapper
+from mythril.analysis.traceexplore import get_serializable_statespace
 from mythril.ethereum.evmcontract import EVMContract
-from mythril.laser.smt import SolverStatistics
-from mythril.support.start_time import StartTime
 from mythril.exceptions import DetectorNotFoundError
 from mythril.laser.execution_info import ExecutionInfo
+from mythril.laser.smt import SolverStatistics
+from mythril.support.loader import DynLoader
+from mythril.support.source_support import Source
+from mythril.support.start_time import StartTime
+from mythril.support.support_args import args
+
+from .mythril_disassembler import MythrilDisassembler
 
 log = logging.getLogger(__name__)
 
@@ -48,7 +49,6 @@ class MythrilAnalyzer:
         """
         self.eth = disassembler.eth
         self.contracts: List[EVMContract] = disassembler.contracts or []
-        self.enable_online_lookup = disassembler.enable_online_lookup
         self.use_onchain_data = not cmd_args.no_onchain_data
         self.strategy = strategy
         self.address = address

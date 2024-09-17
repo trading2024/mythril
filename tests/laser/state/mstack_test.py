@@ -1,7 +1,10 @@
 import pytest
 
+from mythril.laser.ethereum.evm_exceptions import (
+    StackOverflowException,
+    StackUnderflowException,
+)
 from mythril.laser.ethereum.state.machine_state import MachineStack
-from mythril.laser.ethereum.evm_exceptions import *
 from tests import BaseTestCase
 
 

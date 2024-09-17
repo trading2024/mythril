@@ -2,6 +2,7 @@
 graphs."""
 
 import re
+from typing import Dict, List
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from z3 import Z3Exception
@@ -125,56 +126,52 @@ phrack_color = {
 }
 
 
-def extract_nodes(statespace):
+def extract_nodes(statespace) -> List[Dict]:
     """
+    Extract nodes from the given statespace and create a list of node dictionaries
+    with visual attributes for graph representation.
 
-    :param statespace:
-    :param color_map:
-    :return:
+    :param statespace: The statespace object containing nodes and states information.
+    :return: A list of dictionaries representing each node with its attributes.
     """
     nodes = []
     color_map = {}
-    for node_key in statespace.nodes:
-        node = statespace.nodes[node_key]
+    for node_key, node in statespace.nodes.items():
         instructions = [state.get_current_instruction() for state in node.states]
         code_split = []
+
         for instruction in instructions:
-            if instruction["opcode"].startswith("PUSH"):
-                code_line = "%d %s %s" % (
-                    instruction["address"],
-                    instruction["opcode"],
-                    instruction["argument"],
-                )
+            address = instruction["address"]
+            opcode = instruction["opcode"]
+            if opcode.startswith("PUSH"):
+                code_line = f"{address} {opcode} {instruction.get('argument', '')}"
             elif (
-                instruction["opcode"].startswith("JUMPDEST")
+                opcode.startswith("JUMPDEST")
                 and NodeFlags.FUNC_ENTRY in node.flags
-                and instruction["address"] == node.start_addr
+                and address == node.start_addr
             ):
                 code_line = node.function_name
             else:
-                code_line = "%d %s" % (instruction["address"], instruction["opcode"])
+                code_line = f"{address} {opcode}"
 
-            code_line = re.sub(
-                "([0-9a-f]{8})[0-9a-f]+", lambda m: m.group(1) + "(...)", code_line
-            )
+            code_line = re.sub(r"([0-9a-f]{8})[0-9a-f]+", r"\1(...)", code_line)
             code_split.append(code_line)
 
         truncated_code = (
             "\n".join(code_split)
-            if (len(code_split) < 7)
+            if len(code_split) < 7
             else "\n".join(code_split[:6]) + "\n(click to expand +)"
         )
 
-        if node.get_cfg_dict()["contract_name"] not in color_map.keys():
+        contract_name = node.get_cfg_dict()["contract_name"]
+        if contract_name not in color_map:
             color = default_colors[len(color_map) % len(default_colors)]
-            color_map[node.get_cfg_dict()["contract_name"]] = color
+            color_map[contract_name] = color
 
         nodes.append(
             {
                 "id": str(node_key),
-                "color": color_map.get(
-                    node.get_cfg_dict()["contract_name"], default_colors[0]
-                ),
+                "color": color_map.get(contract_name, default_colors[0]),
                 "size": 150,
                 "fullLabel": "\n".join(code_split),
                 "label": truncated_code,
@@ -182,6 +179,7 @@ def extract_nodes(statespace):
                 "isExpanded": False,
             }
         )
+
     return nodes
 
 

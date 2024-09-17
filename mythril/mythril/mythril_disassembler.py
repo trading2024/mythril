@@ -1,33 +1,30 @@
 import json
 import logging
 import os
-from pathlib import Path
 import re
 import shutil
-import solc
 import subprocess
-import sys
 import warnings
+from pathlib import Path
+from typing import List, Optional, Tuple
 
+import solc
 from eth_utils import int_to_big_endian
-from semantic_version import Version, NpmSpec
-from typing import List, Tuple, Optional, TYPE_CHECKING
+from semantic_version import NpmSpec, Version
 
-from mythril.support.support_utils import sha3, zpad
 from mythril.ethereum import util
-from mythril.ethereum.interface.rpc.client import EthJsonRpc
-from mythril.exceptions import CriticalError, CompilerError, NoContractFoundError
-from mythril.support import signatures
-from mythril.support.support_utils import rzpad
-from mythril.support.support_args import args
 from mythril.ethereum.evmcontract import EVMContract
+from mythril.ethereum.interface.rpc.client import EthJsonRpc
 from mythril.ethereum.interface.rpc.exceptions import ConnectionError
+from mythril.exceptions import CompilerError, CriticalError, NoContractFoundError
 from mythril.solidity.soliditycontract import (
     SolidityContract,
     get_contracts_from_file,
     get_contracts_from_foundry,
 )
+from mythril.support import signatures
 from mythril.support.support_args import args
+from mythril.support.support_utils import rzpad, sha3, zpad
 
 
 def format_warning(message, category, filename, lineno, line=""):
@@ -53,7 +50,6 @@ class MythrilDisassembler:
         eth: Optional[EthJsonRpc] = None,
         solc_version: str = None,
         solc_settings_json: str = None,
-        enable_online_lookup: bool = False,
         solc_args=None,
     ) -> None:
         args.solc_args = solc_args
@@ -61,8 +57,7 @@ class MythrilDisassembler:
         self.solc_binary = self._init_solc_binary(solc_version)
         self.solc_settings_json = solc_settings_json
         self.eth = eth
-        self.enable_online_lookup = enable_online_lookup
-        self.sigs = signatures.SignatureDB(enable_online_lookup=enable_online_lookup)
+        self.sigs = signatures.SignatureDB()
         self.contracts: List[EVMContract] = []
 
     @staticmethod
@@ -118,7 +113,6 @@ class MythrilDisassembler:
                 EVMContract(
                     code=code,
                     name="MAIN",
-                    enable_online_lookup=self.enable_online_lookup,
                 )
             )
         else:
@@ -126,7 +120,6 @@ class MythrilDisassembler:
                 EVMContract(
                     creation_code=code,
                     name="MAIN",
-                    enable_online_lookup=self.enable_online_lookup,
                 )
             )
         return address, self.contracts[-1]  # return address and contract object
@@ -161,11 +154,7 @@ class MythrilDisassembler:
                 "Received an empty response from eth_getCode. Check the contract address and verify that you are on the correct chain."
             )
         else:
-            self.contracts.append(
-                EVMContract(
-                    code, name=address, enable_online_lookup=self.enable_online_lookup
-                )
-            )
+            self.contracts.append(EVMContract(code, name=address))
         return address, self.contracts[-1]  # return address and contract object
 
     def load_from_foundry(self):
@@ -204,17 +193,13 @@ class MythrilDisassembler:
         for file in files:
             build_info = Path(build_dir, file)
 
-            uniq_id = file if ".json" not in file else file[0:-5]
-
             with open(build_info, encoding="utf8") as file_desc:
                 loaded_json = json.load(file_desc)
 
                 targets_json = loaded_json["output"]
 
-                version_from_config = loaded_json["solcVersion"]
                 input_json = loaded_json["input"]
                 compiler = "solc" if input_json["language"] == "Solidity" else "vyper"
-                optimizer = input_json["settings"]["optimizer"]["enabled"]
 
                 if compiler == "vyper":
                     raise NotImplementedError("Support for Vyper is not implemented.")

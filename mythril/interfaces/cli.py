@@ -10,28 +10,23 @@ import json
 import logging
 import os
 import sys
-
-import coloredlogs
 import traceback
+from argparse import ArgumentParser, Namespace, RawTextHelpFormatter
 from ast import literal_eval
 
-import mythril.support.signatures as sigs
-from argparse import ArgumentParser, Namespace, RawTextHelpFormatter
-from mythril.concolic import concolic_execution
-from mythril.exceptions import (
-    DetectorNotFoundError,
-    CriticalError,
-)
-from mythril.laser.ethereum.transaction.symbolic import ACTORS
-from mythril.plugin.discovery import PluginDiscovery
-from mythril.plugin.loader import MythrilPluginLoader
-
-from mythril.mythril import MythrilAnalyzer, MythrilDisassembler, MythrilConfig
-
-from mythril.analysis.module import ModuleLoader
-from mythril.analysis.report import Report
+import coloredlogs
 
 from mythril.__version__ import __version__ as VERSION
+from mythril.analysis.module import ModuleLoader
+from mythril.analysis.report import Report
+from mythril.concolic import concolic_execution
+from mythril.exceptions import (
+    CriticalError,
+    DetectorNotFoundError,
+)
+from mythril.laser.ethereum.transaction.symbolic import ACTORS
+from mythril.mythril import MythrilAnalyzer, MythrilConfig, MythrilDisassembler
+from mythril.plugin.loader import MythrilPluginLoader
 
 # Initialise core Mythril Component
 _ = MythrilPluginLoader()
@@ -667,13 +662,6 @@ def validate_args(args: Namespace):
         if len(args.transaction_sequences) != args.transaction_count:
             args.transaction_count = len(args.transaction_sequences)
 
-    if args.command in ANALYZE_LIST:
-        if args.query_signature and sigs.ethereum_input_decoder is None:
-            exit_with_error(
-                args.outform,
-                "The --query-signature function requires the python package ethereum-input-decoder",
-            )
-
 
 def set_config(args: Namespace):
     """
@@ -793,18 +781,20 @@ def execute_command(
             print("Disassembly: \n" + disassembler.contracts[0].get_creation_easm())
 
     elif args.command == SAFE_FUNCTIONS_COMMAND:
-        args.no_onchain_data = (
-            args.disable_dependency_pruning
-        ) = args.unconstrained_storage = True
+        args.no_onchain_data = args.disable_dependency_pruning = (
+            args.unconstrained_storage
+        ) = True
         args.pruning_factor = 1
         function_analyzer = MythrilAnalyzer(
             strategy=strategy, disassembler=disassembler, address=address, cmd_args=args
         )
         try:
             report = function_analyzer.fire_lasers(
-                modules=[m.strip() for m in args.modules.strip().split(",")]
-                if args.modules
-                else None,
+                modules=(
+                    [m.strip() for m in args.modules.strip().split(",")]
+                    if args.modules
+                    else None
+                ),
                 transaction_count=1,
             )
             print_function_report(disassembler, report)
@@ -867,9 +857,11 @@ def execute_command(
         else:
             try:
                 report = analyzer.fire_lasers(
-                    modules=[m.strip() for m in args.modules.strip().split(",")]
-                    if args.modules
-                    else None,
+                    modules=(
+                        [m.strip() for m in args.modules.strip().split(",")]
+                        if args.modules
+                        else None
+                    ),
                     transaction_count=args.transaction_count,
                 )
 
@@ -960,7 +952,6 @@ def parse_args_and_execute(parser: ArgumentParser, args: Namespace) -> None:
         if args.command == FUNCTION_TO_HASH_COMMAND:
             contract_hash_to_address(args)
         config = set_config(args)
-        query_signature = getattr(args, "query_signature", None)
         solc_json = getattr(args, "solc_json", None)
         solv = getattr(args, "solv", None)
         solc_args = getattr(args, "solc_args", None)
@@ -968,7 +959,6 @@ def parse_args_and_execute(parser: ArgumentParser, args: Namespace) -> None:
             eth=config.eth,
             solc_version=solv,
             solc_settings_json=solc_json,
-            enable_online_lookup=query_signature,
             solc_args=solc_args,
         )
 
